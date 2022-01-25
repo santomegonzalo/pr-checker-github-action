@@ -6649,6 +6649,7 @@ var PrChecker = class {
     return comments.data[comments.data.length - 1].body === message;
   }
 };
+console.log("========", import_github.default.context);
 new PrChecker(import_github.default.context.payload.pull_request.number, import_github.default.context.payload.pull_request.labels, getInputArray("required_labels"), import_core2.default.getInput("gh_token"), import_core2.default.getInput("jira_title_regex")).run();
 /*!
  * is-plain-object <https://github.com/jonschlinkert/is-plain-object>
