@@ -1,8 +1,6 @@
 import core from "@actions/core";
 import github from "@actions/github";
 
-import { getInputArray } from "./utils";
-
 type GithubLabel = {
   name: string;
   color: string;
@@ -10,6 +8,11 @@ type GithubLabel = {
 
 const SUCCESS_MESSAGE =
   ":rocket: Your PR has all required labels and Jira ticket :rocket:";
+
+function getInputArray(name: string): string[] {
+  const rawInput = core.getInput(name);
+  return rawInput !== "" ? rawInput.split(",") : [];
+}
 
 class PrChecker {
   private prNumber: number;
@@ -110,7 +113,7 @@ class PrChecker {
   }
 }
 
-console.log('========', github.context);
+console.log("========", github.context);
 
 new PrChecker(
   github.context!.payload!.pull_request!.number,

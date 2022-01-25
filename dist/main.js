@@ -19,8 +19,11 @@ var __spreadValues = (a, b) => {
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 import core from "@actions/core";
 import github from "@actions/github";
-import { getInputArray } from "./utils";
 const SUCCESS_MESSAGE = ":rocket: Your PR has all required labels and Jira ticket :rocket:";
+function getInputArray(name) {
+  const rawInput = core.getInput(name);
+  return rawInput !== "" ? rawInput.split(",") : [];
+}
 class PrChecker {
   constructor(prNumber, labels, requiredLabels, ghToken, jiraRegex) {
     this.prNumber = prNumber;
