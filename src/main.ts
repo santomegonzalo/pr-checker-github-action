@@ -115,5 +115,5 @@ new PrChecker(
   github.context!.payload!.pull_request!.labels,
   getInputArray("required_labels"),
   core.getInput("gh_token"),
-  core.getInput("title_regex")
+  core.getInput("jira_title_regex")
 ).run();
