@@ -6589,18 +6589,14 @@ var require_github = __commonJS({
 });
 
 // src/main.ts
-var import_core2 = __toESM(require_core());
-var import_github = __toESM(require_github());
-
-// src/utils.ts
-var import_core = __toESM(require_core());
+var import_core = __toESM(require_core(), 1);
+var import_github = __toESM(require_github(), 1);
+var LABELS_SUCCESS_MESSAGE = ":rocket: Your PR has all required labels :rocket:";
+var JIRA_SUCCESS_MESSAGE = ":rocket: Your PR has a Jira Number or NOJIRA :rocket:";
 function getInputArray(name) {
   const rawInput = import_core.default.getInput(name);
   return rawInput !== "" ? rawInput.split(",") : [];
 }
-
-// src/main.ts
-var SUCCESS_MESSAGE = ":rocket: Your PR has all required labels and Jira ticket :rocket:";
 var PrChecker = class {
   constructor(prNumber, labels, requiredLabels, ghToken, jiraRegex) {
     this.prNumber = prNumber;
@@ -6619,7 +6615,9 @@ var PrChecker = class {
       if (!await this.isLastComment(errorMessage)) {
         this.createComment(errorMessage);
       }
-      import_core2.default.setFailed("Please add Jira number or NOJIRA on the PR Title");
+      import_core.default.setFailed("Please add Jira number or NOJIRA on the PR Title");
+    } else if (!await this.isLastComment(JIRA_SUCCESS_MESSAGE)) {
+      this.createComment(JIRA_SUCCESS_MESSAGE);
     }
   }
   async checkLabels() {
@@ -6628,9 +6626,9 @@ var PrChecker = class {
       if (!await this.isLastComment(errorMessage)) {
         this.createComment(errorMessage);
       }
-      import_core2.default.setFailed(`Please select one of the required labels for this PR: ${this.requiredLabels}`);
-    } else if (!await this.isLastComment(SUCCESS_MESSAGE)) {
-      this.createComment(SUCCESS_MESSAGE);
+      import_core.default.setFailed(`Please select one of the required labels for this PR: ${this.requiredLabels}`);
+    } else if (!await this.isLastComment(LABELS_SUCCESS_MESSAGE)) {
+      this.createComment(LABELS_SUCCESS_MESSAGE);
     }
   }
   createComment(body) {
@@ -6649,7 +6647,7 @@ var PrChecker = class {
     return comments.data[comments.data.length - 1].body === message;
   }
 };
-new PrChecker(import_github.default.context.payload.pull_request.number, import_github.default.context.payload.pull_request.labels, getInputArray("required_labels"), import_core2.default.getInput("gh_token"), import_core2.default.getInput("jira_title_regex")).run();
+new PrChecker(import_github.default.context.payload.pull_request.number, import_github.default.context.payload.pull_request.labels, getInputArray("required_labels"), import_core.default.getInput("gh_token"), import_core.default.getInput("jira_title_regex")).run();
 /*!
  * is-plain-object <https://github.com/jonschlinkert/is-plain-object>
  *
