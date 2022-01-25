@@ -18,11 +18,28 @@ You will not be able to merge the Pull Request if the action is not passing both
 ## Example usage
 
 ```
-- name: Label Checker
-  uses: santomegonzalo/pr-checker-github-action
-  id: pr-checker-github-action
-  with:
-    gh_token: ${{ secrets.GITHUB_TOKEN }}
-    title_regex: \[(([A-Z][A-Z0-9]+-[0-9]+)|NOJIRA)\]
-    required_labels: "feature,bug,documentation,breaking,chore"
+on:
+  pull_request:
+    # we recommend to use it on every pull request event
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - labeled
+      - unlabeled
+      - edited
+jobs:
+  check_labels:
+    runs-on: ubuntu-latest
+    name: Check required labels and title
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: PR Checker
+        uses: santomegonzalo/pr-checker-github-actions@v1
+        with:
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
+          jira_title_regex: ^\[(([A-Z][A-Z0-9]+-[0-9]+)|NOJIRA)\]
+          required_labels: "feature,bug,documentation,chore"
+
 ```
