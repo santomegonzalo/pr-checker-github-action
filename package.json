@@ -5,8 +5,10 @@
   "author": {
     "name": "Gonzalo Santome"
   },
+  "license": "MIT",
   "main": "dist/main.js",
   "scripts": {
+    "build:ncc": "ncc build src/main.ts",
     "build": "esbuild src/main.ts --bundle --outfile=dist/main.js --platform=node --target=node16"
   },
   "dependencies": {
@@ -17,6 +19,7 @@
     "@types/node": "^16.11.11",
     "esbuild": "^0.14.1",
     "prettier": "^2.1.2",
-    "typescript": "^4.0.3"
+    "typescript": "^4.0.3",
+    "@vercel/ncc": "^0.33.1"
   }
 }
