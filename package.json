@@ -9,7 +9,7 @@
   "main": "dist/main.js",
   "scripts": {
     "build:ncc": "ncc build src/main.ts",
-    "build": "esbuild src/main.ts --bundle --outfile=dist/main.js --platform=node --target=node16"
+    "build": "esbuild src/main.ts --outfile=dist/main.js --platform=node --target=node16"
   },
   "dependencies": {
     "@actions/core": "^1.2.6",
