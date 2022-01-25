@@ -1,5 +1,7 @@
 # PR Checker Github Actions
 
+Just an example for a PR
+
 ## Description
 
 This action will verify the following rules:
