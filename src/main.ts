@@ -6,8 +6,10 @@ type GithubLabel = {
   color: string;
 };
 
-const SUCCESS_MESSAGE =
-  ":rocket: Your PR has all required labels and Jira ticket :rocket:";
+const LABELS_SUCCESS_MESSAGE =
+  ":rocket: Your PR has all required labels :rocket:";
+const JIRA_SUCCESS_MESSAGE =
+  ":rocket: Your PR has a Jira Number or NOJIRA :rocket:";
 
 function getInputArray(name: string): string[] {
   const rawInput = core.getInput(name);
@@ -54,6 +56,8 @@ class PrChecker {
       }
 
       core.setFailed("Please add Jira number or NOJIRA on the PR Title");
+    } else if (!(await this.isLastComment(JIRA_SUCCESS_MESSAGE))) {
+      this.createComment(JIRA_SUCCESS_MESSAGE);
     }
   }
 
@@ -77,8 +81,8 @@ class PrChecker {
       core.setFailed(
         `Please select one of the required labels for this PR: ${this.requiredLabels}`
       );
-    } else if (!(await this.isLastComment(SUCCESS_MESSAGE))) {
-      this.createComment(SUCCESS_MESSAGE);
+    } else if (!(await this.isLastComment(LABELS_SUCCESS_MESSAGE))) {
+      this.createComment(LABELS_SUCCESS_MESSAGE);
     }
   }
 
