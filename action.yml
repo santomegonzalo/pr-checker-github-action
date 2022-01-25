@@ -1,0 +1,17 @@
+name: "PR Checker Action"
+description: "Action to check PR title contains Jira Number and contain required labels"
+inputs:
+  gh_token:
+    description: "Github Token"
+    required: true
+  jira_title_regex:
+    description: "Jira Title Regex"
+    required: true
+    default: ^\[(([A-Z][A-Z0-9]+-[0-9]+)|NOJIRA)\]
+  required_labels:
+    description: "Required Github Labels"
+    required: true
+    default: "feature,bug,documentation,chore"
+runs:
+  using: "node16"
+  main: "dist/main.js"
