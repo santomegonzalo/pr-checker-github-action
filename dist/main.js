@@ -72,5 +72,4 @@ class PrChecker {
     return comments.data[comments.data.length - 1].body === message;
   }
 }
-console.log("========", github.context);
 new PrChecker(github.context.payload.pull_request.number, github.context.payload.pull_request.labels, getInputArray("required_labels"), core.getInput("gh_token"), core.getInput("jira_title_regex")).run();

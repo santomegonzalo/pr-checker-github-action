@@ -113,8 +113,6 @@ class PrChecker {
   }
 }
 
-console.log("========", github.context);
-
 new PrChecker(
   github.context!.payload!.pull_request!.number,
   github.context!.payload!.pull_request!.labels,
